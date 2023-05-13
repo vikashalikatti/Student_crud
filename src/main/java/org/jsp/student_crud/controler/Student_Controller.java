@@ -43,4 +43,19 @@ public class Student_Controller {
 	public Response_structure<List<Student>> fetchbymobile(@PathVariable long mob){
 		return service.fetchbymobile(mob);
 	}
+	
+	@GetMapping("students/result/{result}")
+	public Response_structure<List<Student>> fetchbyResult(@PathVariable String result){
+		return service.fetchbyResult(result);
+	}
+	
+	@GetMapping("students/{name}/{percentage}")
+	public Response_structure<List<Student>> fetchbyResultNameandpercantage(@PathVariable String name ,@PathVariable double percentage){
+		return service.fetchbyResultNameandpercantage(name,percentage);
+	}
+	
+	@GetMapping("Fetchall")
+	public Response_structure<List<Student>> fetchall(){
+		return service.fetchall();
+	}
 }

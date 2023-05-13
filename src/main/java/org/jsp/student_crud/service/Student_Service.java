@@ -91,6 +91,65 @@ public class Student_Service {
 	}
 
 	public Response_structure<List<Student>> fetchbymobile(long mob) {
-	dao.fetchbyid(mob); 
+		List<Student> list = dao.fetchbymob(mob);
+		Response_structure<List<Student>> response_structure = new Response_structure<>();
+		if (list.isEmpty()) {
+			response_structure.setMessage("Data Not Found");
+			response_structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			response_structure.setData(null);
+		} else {
+			response_structure.setMessage("Data Found");
+			response_structure.setStatusCode(HttpStatus.FOUND.value());
+			response_structure.setData(list);
+		}
+		return response_structure;
 	}
+
+	public Response_structure<List<Student>> fetchbyResult(String result) {
+		// TODO Auto-generated method stub
+		List<Student> list = dao.fetchbyresult(result);
+		Response_structure<List<Student>> response_structure = new Response_structure<>();
+		if (list.isEmpty()) {
+			response_structure.setMessage("Data Not Found");
+			response_structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			response_structure.setData(null);
+		} else {
+			response_structure.setMessage("Data Found");
+			response_structure.setStatusCode(HttpStatus.FOUND.value());
+			response_structure.setData(list);
+		}
+		return response_structure;
+
+	}
+
+	public Response_structure<List<Student>> fetchbyResultNameandpercantage(String name, double percentage) {
+		List<Student> list = dao.fetchbyResultNameandpercantage(name, percentage);
+		Response_structure<List<Student>> response_structure = new Response_structure<>();
+		if (list.isEmpty()) {
+			response_structure.setMessage("Data Not Found");
+			response_structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			response_structure.setData(null);
+		} else {
+			response_structure.setMessage("Data Found");
+			response_structure.setStatusCode(HttpStatus.FOUND.value());
+			response_structure.setData(list);
+		}
+		return response_structure;
+	}
+
+	public Response_structure<List<Student>> fetchall() {
+		List<Student> list = dao.fetchall();
+		Response_structure<List<Student>> response_structure = new Response_structure<>();
+		if (list.isEmpty()) {
+			response_structure.setMessage("Data Not Found");
+			response_structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			response_structure.setData(null);
+		} else {
+			response_structure.setMessage("Data Found");
+			response_structure.setStatusCode(HttpStatus.FOUND.value());
+			response_structure.setData(list);
+		}
+		return response_structure;
+	}
+
 }

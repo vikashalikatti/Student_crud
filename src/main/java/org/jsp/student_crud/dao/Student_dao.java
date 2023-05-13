@@ -27,9 +27,21 @@ public class Student_dao {
 			return optional.get();
 		}
 	}
-	public List<Student> fetchbyid(long mob) {
+	public List<Student> fetchbymob(long mob) {
 		return repositiry.findByMobile(mob);
 		
+	}
+	public List<Student> fetchbyresult(String result) {
+		// TODO Auto-generated method stub
+		return repositiry.findByResult(result);
+	}
+	public List<Student> fetchbyResultNameandpercantage(String name, double percentage) {
+		// TODO Auto-generated method stub
+		return repositiry.fetchbyResultNameandpercantage(name,percentage);
+	}
+	public List<Student> fetchall() {
+		// TODO Auto-generated method stub
+		return repositiry.findAll();
 	}
 	
 }
