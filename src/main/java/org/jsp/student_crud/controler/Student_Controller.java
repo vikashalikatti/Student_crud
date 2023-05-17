@@ -6,9 +6,11 @@ import org.jsp.student_crud.dto.Student;
 import org.jsp.student_crud.helper.Response_structure;
 import org.jsp.student_crud.service.Student_Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,4 +60,20 @@ public class Student_Controller {
 	public Response_structure<List<Student>> fetchall(){
 		return service.fetchall();
 	}
+	
+	@DeleteMapping("students/{id}")
+	public Response_structure<Student> deletebyid(@PathVariable int id){
+		return service.deletebyid(id);
+	}
+	
+	@PutMapping("update/{id}")
+	public Response_structure<Student> update(@PathVariable int id, @RequestBody Student student) {
+	    return service.update(id, student);
+	}
+	@DeleteMapping("students/deleteall")
+	public Response_structure<List<Student>> deleteall(){
+	    return service.deleteall();
+	}
+
+
 }

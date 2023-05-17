@@ -43,5 +43,12 @@ public class Student_dao {
 		// TODO Auto-generated method stub
 		return repositiry.findAll();
 	}
+	public void deletebyid(int id) {
+		// TODO Auto-generated method stub
+		 repositiry.deleteById(id);
+		 }
+	public void deleteall() {
+		repositiry.deleteAll();
+	}
 	
 }

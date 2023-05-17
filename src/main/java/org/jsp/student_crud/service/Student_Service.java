@@ -1,6 +1,7 @@
 package org.jsp.student_crud.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.jsp.student_crud.dao.Student_dao;
 import org.jsp.student_crud.dto.Student;
@@ -151,5 +152,64 @@ public class Student_Service {
 		}
 		return response_structure;
 	}
+
+	public Response_structure<Student> deletebyid(int id) {
+		Response_structure<Student> response_structure = new Response_structure<>();
+		dao.deletebyid(id);
+		response_structure.setMessage("Data Found");
+		response_structure.setStatusCode(HttpStatus.FOUND.value());
+		response_structure.setData(null);
+		return response_structure;
+	}
+
+	public Response_structure<Student> update(int studentId, Student student) {
+	    Optional<Student> existingStudent = Optional.ofNullable(dao.fetchbyid(studentId));
+
+	    if (existingStudent.isPresent()) {
+	        double percentage = (student.getEnglish_marks() + student.getMath_marks() + student.getScience_marks()
+	                + student.getScience_marks()) / 4.0;
+	        student.setPercentage(percentage);
+	        if (percentage > 85) {
+	            student.setResult("Distinction");
+	        } else {
+	            if (percentage > 60) {
+	                student.setResult("First_Class");
+	            } else {
+	                if (percentage > 45) {
+	                    student.setResult("Just Pass");
+	                } else {
+	                    student.setResult("fail");
+	                }
+	            }
+	        }
+
+	        student.setId(existingStudent.get().getId()); // Set the ID of the student object to the existing student's ID
+	        Response_structure<Student> response_structure = new Response_structure<>();
+	        response_structure.setMessage("Data updated successfully");
+	        response_structure.setStatusCode(HttpStatus.OK.value());
+	        response_structure.setData(dao.save(student));
+	        return response_structure;
+	    } else {
+	        Response_structure<Student> response_structure = new Response_structure<>();
+	        response_structure.setMessage("Student not found");
+	        response_structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+	        response_structure.setData(null);
+	        return response_structure;
+	    }
+	}
+
+	public Response_structure<List<Student>> deleteall() {
+	    dao.deleteall();  // Assuming deleteall() method is implemented in dao
+
+	    Response_structure<List<Student>> response_structure = new Response_structure<>();
+	    response_structure.setMessage("All students deleted successfully");
+	    response_structure.setStatusCode(HttpStatus.OK.value());
+	    response_structure.setData(null);
+
+	    return response_structure;
+	}
+
+
+
 
 }
